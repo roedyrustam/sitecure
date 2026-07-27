@@ -57,13 +57,27 @@ async def run_scan_pipeline(scan_job_id: int):
             crawled_urls = crawl_res.get("endpoints", [target.target_url])
             await log_progress(25, f"Discovered {len(crawled_urls)} target endpoints & routes for security fuzzing.")
 
-        # 2. DAST Engine Fuzzing on Crawled Endpoints
+        # 2. DAST Engine Fuzzing & Cloudflare Audit Modules
         if scan_job.scan_type in ["full", "dast"]:
-            await log_progress(30, "Executing DAST Fuzzing & Security Protocol Inspector...")
+            await log_progress(30, "Executing DAST Fuzzing & Cloudflare Origin Exposure Audit...")
+            
+            # Run Cloudflare Direct-Origin IP Exposure Check
+            from app.scanner.origin_ip_finder import OriginIPFinder
+            origin_finder = OriginIPFinder(target.target_url)
+            origin_findings = await origin_finder.scan_origin_exposure()
+            all_findings.extend(origin_findings)
+
+            # Run Cloudflare WAF Evasion Resilience Audit
+            from app.scanner.waf_evasion_auditor import WAFEvasionAuditor
+            waf_auditor = WAFEvasionAuditor(target.target_url)
+            waf_findings = await waf_auditor.audit_waf_resilience()
+            all_findings.extend(waf_findings)
+
             for idx, url in enumerate(crawled_urls[:5]):
                 dast = DASTEngine(url)
                 dast_findings = await dast.run_all_checks(log_progress)
                 all_findings.extend(dast_findings)
+
 
         # 3. SAST Execution
         if scan_job.scan_type in ["full", "sast"]:
