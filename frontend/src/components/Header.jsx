@@ -1,7 +1,8 @@
 import React from 'react';
 import { ShieldAlert, Cpu, Activity, Database, Sparkles } from 'lucide-react';
 
-export default function Header({ activeTab, setActiveTab, targetCount, activeScansCount }) {
+export default function Header({ activeTab, setActiveTab, targetCount, activeScansCount, onOpenCommandPalette }) {
+
   return (
     <header className="sticky top-0 z-40 glass-panel border-b border-slate-800 px-6 py-3.5 mb-6">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
@@ -72,8 +73,16 @@ export default function Header({ activeTab, setActiveTab, targetCount, activeSca
           </button>
         </nav>
 
-        {/* Live Status indicator */}
+        {/* Live Status & Command Palette trigger */}
         <div className="flex items-center space-x-3">
+          <button
+            onClick={onOpenCommandPalette}
+            className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400 hover:text-slate-200 hover:border-slate-700 transition"
+          >
+            <span>Search</span>
+            <span className="font-mono text-[10px] bg-slate-800 px-1.5 py-0.5 rounded text-cyan-400">Ctrl K</span>
+          </button>
+
           <div className="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-800/60 text-emerald-400 text-xs font-medium">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
             <span>Engine Ready</span>
@@ -88,3 +97,4 @@ export default function Header({ activeTab, setActiveTab, targetCount, activeSca
     </header>
   );
 }
+

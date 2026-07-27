@@ -1,6 +1,7 @@
 # SiteCure — Enterprise Internal Web Vulnerability Scanner & Security Remediation Platform
 
-![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)
+![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)
+
 ![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688?logo=fastapi&logoColor=white)
 ![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)

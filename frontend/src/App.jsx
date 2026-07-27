@@ -6,6 +6,7 @@ import TargetManager from './components/TargetManager';
 import ScannerControl from './components/ScannerControl';
 import AIRemediationModal from './components/AIRemediationModal';
 import VirtualPatchModal from './components/VirtualPatchModal';
+import CommandPalette from './components/CommandPalette';
 import ReportExporter from './components/ReportExporter';
 
 export default function App() {
@@ -15,8 +16,10 @@ export default function App() {
   const [vulnerabilities, setVulnerabilities] = useState([]);
   const [selectedPatchVuln, setSelectedPatchVuln] = useState(null);
   const [selectedVirtualPatchVuln, setSelectedVirtualPatchVuln] = useState(null);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [exportScanId, setExportScanId] = useState(null);
   const [loading, setLoading] = useState(true);
+
 
   const fetchData = async () => {
     try {
@@ -79,6 +82,7 @@ export default function App() {
         setActiveTab={setActiveTab}
         targetCount={targets.length}
         activeScansCount={activeScansCount}
+        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
       />
 
       <main className="max-w-7xl mx-auto px-6 space-y-6">
@@ -150,7 +154,19 @@ export default function App() {
           onClose={() => setSelectedVirtualPatchVuln(null)}
         />
       )}
+
+      {/* Command Palette Global Modal */}
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        vulnerabilities={vulnerabilities}
+        targets={targets}
+        onSelectVuln={(vuln) => setSelectedPatchVuln(vuln)}
+        onSelectTarget={() => setActiveTab('targets')}
+      />
     </div>
   );
+}
+
 }
 

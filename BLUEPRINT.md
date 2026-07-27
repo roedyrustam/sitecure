@@ -8,13 +8,20 @@
 
 ### Key Features
 - **Asset Management:** Pengelolaan daftar target website/IP/Repositori internal.
-- **Dual-Engine Security Scanner:**
+- **Multi-Engine Security Scanner:**
   - **DAST Module:** HTTP probe & security headers audit, SSL/TLS inspector, OWASP Top 10 fuzzer (SQLi, XSS, CSRF, Path Traversal, Misconfigurations), dan open port scanner.
   - **SAST Light Module:** Source code scanner untuk kebocoran API Keys/Secrets, Hardcoded Passwords, serta matching CVE dependensi.
-- **Interactive Vulnerability Matrix:** Tampilan temuan dengan pengelompokan severity (Critical, High, Medium, Low, Info) & kalkulator CVSS 3.1.
-- **AI Remediation & Code Patch Generator:** Generasi kode perbaikan (*diff snippet*) berbasis AI untuk mempermudah penambalan oleh developer.
+  - **Subdomain Takeover & Permissive CORS Auditor:** Deteksi record DNS CNAME terabaikan (AWS S3, GitHub Pages, Heroku) & miskonfigurasi CORS.
+  - **Cloudflare Origin Exposure & WAF Evasion Auditor:** Deteksi kebocoran IP backend asli & uji ketahanan aturan WAF.
+- **Hybrid DAST-to-SAST Code Tracer & Attack Chain Analyzer:** Korelasi temuan DAST ke SAST dan pemetaan visual grafik rantai eksploitasi (*Attack Chain Graph*).
+- **1-Click Virtual Patch & WAF Shield Generator:** Generasi aturan benteng keamanan seketika (FastAPI Middleware, Nginx ModSecurity, Cloudflare WAF) dalam 5 detik.
+- **Multi-Standard Security Compliance Engine:** Pemetaan otomatis ke regulasi **PCI-DSS v4.0 (Req 6)** & **ISO/IEC 27001:2022**.
+- **Production Rate Limiter & Caching Layer:** In-Memory caching & rate limiting middleware untuk performa tinggi & keamanan API.
+- **Command Palette (`Ctrl+K`):** Pintasan keyboard pencarian cepat global untuk navigasi instan.
+- **AI Remediation & Code Patch Generator:** Generasi kode perbaikan (*diff snippet*) berbasis AI Gemini LLM.
 - **One-Click Rescan Verification:** Pengujian ulang instan khusus pada endpoint yang rentan untuk memverifikasi efektivitas penambalan.
-- **Executive PDF & JSON Reporting:** Ekspor laporan audit keamanan profesional.
+- **Executive PDF, CSV & JSON Reporting:** Ekspor laporan audit keamanan profesional.
+
 
 ---
 
