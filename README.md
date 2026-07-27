@@ -1,6 +1,6 @@
 # SiteCure — Enterprise Internal Web Vulnerability Scanner & Security Remediation Platform
 
-![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)
 ![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688?logo=fastapi&logoColor=white)
 ![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)
@@ -8,7 +8,7 @@
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?logo=tailwind-css&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-**SiteCure** adalah platform pemindai kerentanan keamanan website dan repositori kode internal berkelas enterprise. SiteCure menggabungkan pengujian keamanan dinamis (**DAST**), pemindaian kode statis (**SAST Light**), pencocokan CVE dependensi (**SCA**), korelasi rantai serangan (**Attack Chain Analysis**), perlindungan benteng instan (**1-Click Virtual Patch WAF Shield**), serta verifikasi Proof-of-Concept (**PoC Verification**) berbasis AI yang menghasilkan perbaikan kode secara otomatis (*AI Code Remediation Patch*).
+**SiteCure** adalah platform pemindai kerentanan keamanan website dan repositori kode internal berkelas enterprise. SiteCure menggabungkan pengujian keamanan dinamis (**DAST**), pemindaian kode statis (**SAST Light**), pencocokan CVE dependensi (**SCA**), korelasi rantai serangan (**Attack Chain Analysis**), perlindungan benteng instan (**1-Click Virtual Patch WAF Shield**), deteksi *Subdomain Takeover*, serta pemetaan otomatis ke regulasi industri **PCI-DSS v4.0** & **ISO 27001:2022**.
 
 ---
 
@@ -19,10 +19,13 @@
    - Otomatis memetakan dan mengkalkulasi skenario rantai eksploitasi multi-tahap (*Exploit Attack Chains*).
 2. **🛡️ 1-Click Virtual Patch & Instant WAF Shield Generator (`virtual_patching.py`)**:
    - Menghasilkan aturan perlindungan seketika (FastAPI Python Middleware Guard, Nginx ModSecurity SecRules, & Cloudflare Custom WAF Rules) dalam **5 detik** sebelum patch kode rilis.
-3. **🧪 Automated Security Regression Test Suite (`regression_suite.py`)**:
+3. **🚩 Subdomain Takeover & Permissive CORS Auditor (`subdomain_takeover.py`)**:
+   - Memindai CNAME DNS record terabaikan (AWS S3, GitHub Pages, Heroku, Vercel) dan miskonfigurasi CORS rentan.
+4. **📜 Multi-Standard Compliance & Governance Engine (`compliance_exporter.py`)**:
+   - Pemetaan otomatis temuan kerentanan ke standar regulasi **PCI-DSS v4.0 (Req 6)** dan **ISO/IEC 27001:2022 (Control A.8.28 / A.8.8)**.
+5. **🧪 Automated Security Regression Test Suite (`regression_suite.py`)**:
    - Otomatis membuat berkas skrip pengujian `test_security_regression.py` (Pytest + `httpx`) untuk setiap temuan kerentanan agar dapat diintegrasikan langsung ke CI/CD pipeline.
-4. **📊 Interactive Threat Flow Graph Visualizer (`AttackChainGraph.jsx`)**:
-   - Komponen antarmuka visual node grafik rantai serangan interaktif di dashboard frontend.
+
 
 ---
 

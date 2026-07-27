@@ -73,10 +73,17 @@ async def run_scan_pipeline(scan_job_id: int):
             waf_findings = await waf_auditor.audit_waf_resilience()
             all_findings.extend(waf_findings)
 
+            # Run Subdomain Takeover & Permissive CORS Auditor
+            from app.scanner.subdomain_takeover import SubdomainTakeoverScanner
+            takeover_scanner = SubdomainTakeoverScanner(target.target_url)
+            takeover_findings = await takeover_scanner.scan_all()
+            all_findings.extend(takeover_findings)
+
             for idx, url in enumerate(crawled_urls[:5]):
                 dast = DASTEngine(url)
                 dast_findings = await dast.run_all_checks(log_progress)
                 all_findings.extend(dast_findings)
+
 
 
         # 3. SAST Execution
@@ -272,4 +279,25 @@ def get_regression_suite(scan_id: int, db: Session = Depends(get_db)):
         media_type="text/x-python",
         headers={"Content-Disposition": f"attachment; filename=test_security_regression_scan_{scan_id}.py"}
     )
+
+@router.get("/{scan_id}/compliance-report")
+def get_compliance_report(scan_id: int, db: Session = Depends(get_db)):
+    scan = db.query(models.ScanJob).filter(models.ScanJob.id == scan_id).first()
+    if not scan:
+        raise HTTPException(status_code=404, detail="Scan job not found")
+
+    vulns = [
+        {
+            "id": v.id,
+            "title": v.title,
+            "severity": v.severity,
+            "cwe_id": v.cwe_id,
+            "owasp_category": v.owasp_category
+        }
+        for v in scan.vulnerabilities
+    ]
+
+    from app.services.compliance_exporter import ComplianceExporter
+    return ComplianceExporter.map_compliance(vulns)
+
 

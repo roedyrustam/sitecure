@@ -7,7 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.1.0] - 2026-07-28
+## [1.3.0] - 2026-07-28
+
+### Added (Subdomain Takeover & Enterprise Compliance Engine)
+- **Subdomain Takeover & Permissive CORS Auditor (`subdomain_takeover.py`)**:
+  - Memindai CNAME DNS record dangling yang mengarah ke layanan cloud tak aktif (AWS S3, GitHub Pages, Heroku, Vercel).
+  - Mendeteksi miskonfigurasi CORS bahaya (`Access-Control-Allow-Origin: *` dengan credentials).
+- **Multi-Standard Compliance & Governance Engine (`compliance_exporter.py`)**:
+  - Pemetaan otomatis temuan kerentanan ke regulasi **PCI-DSS v4.0 (Req 6)** & **ISO/IEC 27001:2022 (Control A.8.28/A.8.8)**.
+- **Interactive Compliance Scorecard UI (`ComplianceScorecard.jsx`)**:
+  - Tampilan visual status kepatuhan standar keamanan pada Dashboard.
+
+## [1.2.0] - 2026-07-28
+
 
 ### Added (Kehandalan Khusus & Feature Differentiators)
 - **Hybrid DAST-SAST Code Tracer & Attack Chain Analyzer (`attack_chain_analyzer.py`)**:

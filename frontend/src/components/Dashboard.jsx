@@ -6,6 +6,8 @@ import {
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import VulnerabilityMatrix from './VulnerabilityMatrix';
 import AttackChainGraph from './AttackChainGraph';
+import ComplianceScorecard from './ComplianceScorecard';
+
 
 export default function Dashboard({ 
   targets, scans, vulnerabilities, onLaunchScan, onOpenPatchModal, onOpenVirtualPatchModal, onExportReport, refreshData 
@@ -217,6 +219,14 @@ export default function Dashboard({
               >
                 Attack Chain Graph
               </button>
+              <button
+                onClick={() => setDashboardView('compliance')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+                  dashboardView === 'compliance' ? 'bg-cyan-500 text-slate-950 shadow' : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                Compliance Scorecard
+              </button>
             </div>
 
             <button
@@ -260,9 +270,12 @@ export default function Dashboard({
             onOpenVirtualPatchModal={onOpenVirtualPatchModal}
             refreshData={refreshData}
           />
-        ) : (
+        ) : dashboardView === 'attack-chain' ? (
           <AttackChainGraph scanId={scans.length > 0 ? scans[0].id : null} />
+        ) : (
+          <ComplianceScorecard scanId={scans.length > 0 ? scans[0].id : null} />
         )}
+
       </div>
     </div>
   );
