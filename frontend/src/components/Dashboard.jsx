@@ -38,13 +38,19 @@ export default function Dashboard({
 
   const dastCount = vulnerabilities.filter(v => v.vulnerability_type === 'DAST').length;
   const sastCount = vulnerabilities.filter(v => v.vulnerability_type === 'SAST').length;
+  const dbCount = vulnerabilities.filter(v => v.vulnerability_type === 'DATABASE' || v.title.toLowerCase().includes('database') || v.title.toLowerCase().includes('redis')).length;
+  const supabaseCount = vulnerabilities.filter(v => v.vulnerability_type === 'SUPABASE' || v.title.toLowerCase().includes('supabase') || v.title.toLowerCase().includes('rls')).length;
   const portCount = vulnerabilities.filter(v => v.vulnerability_type === 'PORT').length;
 
   const categoryBarData = [
     { category: 'DAST Web', count: dastCount },
     { category: 'SAST Code', count: sastCount },
+    { category: 'Database Risk', count: dbCount },
+    { category: 'Supabase RLS', count: supabaseCount },
     { category: 'Ports Service', count: portCount }
   ];
+
+
 
   return (
     <div className="space-y-6">

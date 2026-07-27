@@ -79,10 +79,24 @@ async def run_scan_pipeline(scan_job_id: int):
             takeover_findings = await takeover_scanner.scan_all()
             all_findings.extend(takeover_findings)
 
+            # Run Database Vulnerability & Security Auditor
+            from app.scanner.database_auditor import DatabaseAuditor
+            db_auditor = DatabaseAuditor(target.target_url)
+            db_findings = await db_auditor.run_database_audit()
+            all_findings.extend(db_findings)
+
+            # Run Supabase Security & Vulnerability Auditor
+            from app.scanner.supabase_auditor import SupabaseAuditor
+            supabase_auditor = SupabaseAuditor(target.target_url)
+            sb_findings = await supabase_auditor.run_supabase_audit()
+            all_findings.extend(sb_findings)
+
             for idx, url in enumerate(crawled_urls[:5]):
                 dast = DASTEngine(url)
                 dast_findings = await dast.run_all_checks(log_progress)
                 all_findings.extend(dast_findings)
+
+
 
 
 

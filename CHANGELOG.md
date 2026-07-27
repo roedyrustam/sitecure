@@ -7,7 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.2.0] - 2026-07-28
+
+### Added (Supabase Security & Vulnerability Auditor Engine)
+- **Supabase Security Auditor (`supabase_auditor.py`)**:
+  - Deteksi kebocoran Kunci Secret Admin Supabase `service_role` JWT (Full RLS Bypass).
+  - Audit tabel PostgreSQL PostgREST `/rest/v1/` tanpa Row Level Security (`Disabled RLS`).
+  - Evaluasi kebijakan RLS yang terlalu permisif (`USING (true)`).
+  - Audit Supabase Storage Buckets berstatus publik (`Public Bucket Access`).
+  - Rekomendasi penambalan SQL perbaikan otomatis (`ENABLE ROW LEVEL SECURITY`).
+
+## [2.1.0] - 2026-07-28
+
+
+### Added (Database Vulnerability & Security Auditor Engine)
+- **Database Misconfiguration & Security Auditor (`database_auditor.py`)**:
+  - Pemindaian port basis data publik (MySQL 3306, PostgreSQL 5432, MongoDB 27017, Redis 6379, MSSQL 1433).
+  - Deteksi instansi Redis & MongoDB tanpa autentikasi (`Unauthenticated DB Exposure`).
+  - Audit antarmuka manajemen DB berbasis web publik yang rentan (phpMyAdmin, pgAdmin, Adminer, Mongo Express).
+  - Rekomendasi penambalan spesifik DBMS (`pg_hba.conf`, `my.cnf`, binding `127.0.0.1`, `requirepass`).
+
 ## [2.0.0] - 2026-07-28
+
 
 ### Added (Master Skill Orchestration & Production Hardening)
 - **Production Rate Limiter & Security Hardening Layer (`rate_limiter.py`)**:
