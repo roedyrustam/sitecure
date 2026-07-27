@@ -62,3 +62,20 @@ async def generate_remediation_patch(request: schemas.PatchRequest, db: Session 
     db.commit()
     db.refresh(patch_record)
     return patch_record
+
+@router.post("/virtual-patch/{vuln_id}")
+def generate_virtual_patch(vuln_id: int, db: Session = Depends(get_db)):
+    vuln = db.query(models.Vulnerability).filter(models.Vulnerability.id == vuln_id).first()
+    if not vuln:
+        raise HTTPException(status_code=404, detail="Vulnerability not found")
+
+    vuln_dict = {
+        "id": vuln.id,
+        "title": vuln.title,
+        "cwe_id": vuln.cwe_id,
+        "affected_endpoint": vuln.affected_endpoint
+    }
+    
+    from app.services.virtual_patching import VirtualPatchingService
+    return VirtualPatchingService.generate_virtual_patches(vuln_dict)
+

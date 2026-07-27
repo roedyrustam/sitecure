@@ -1,6 +1,6 @@
 # SiteCure — Enterprise Internal Web Vulnerability Scanner & Security Remediation Platform
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
 ![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688?logo=fastapi&logoColor=white)
 ![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)
@@ -8,7 +8,21 @@
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?logo=tailwind-css&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-**SiteCure** adalah platform pemindai kerentanan keamanan website dan repositori kode internal berkelas enterprise. SiteCure menggabungkan pengujian keamanan dinamis (**DAST**), pemindaian kode statis (**SAST Light**), pencocokan CVE dependensi (**SCA**), serta verifikasi Proof-of-Concept (**PoC Verification**) berbasis AI yang menghasilkan perbaikan kode secara otomatis (*AI Code Remediation Patch*).
+**SiteCure** adalah platform pemindai kerentanan keamanan website dan repositori kode internal berkelas enterprise. SiteCure menggabungkan pengujian keamanan dinamis (**DAST**), pemindaian kode statis (**SAST Light**), pencocokan CVE dependensi (**SCA**), korelasi rantai serangan (**Attack Chain Analysis**), perlindungan benteng instan (**1-Click Virtual Patch WAF Shield**), serta verifikasi Proof-of-Concept (**PoC Verification**) berbasis AI yang menghasilkan perbaikan kode secara otomatis (*AI Code Remediation Patch*).
+
+---
+
+## ⚡ Kehandalan Khusus & Keunggulan Unik (Key Differentiators)
+
+1. **🔗 Hybrid DAST-to-SAST Code Tracer & Attack Chain Analyzer (`attack_chain_analyzer.py`)**:
+   - Mengkorelasikan endpoint rentan dari DAST langsung dengan berkas & baris kode sumber SAST.
+   - Otomatis memetakan dan mengkalkulasi skenario rantai eksploitasi multi-tahap (*Exploit Attack Chains*).
+2. **🛡️ 1-Click Virtual Patch & Instant WAF Shield Generator (`virtual_patching.py`)**:
+   - Menghasilkan aturan perlindungan seketika (FastAPI Python Middleware Guard, Nginx ModSecurity SecRules, & Cloudflare Custom WAF Rules) dalam **5 detik** sebelum patch kode rilis.
+3. **🧪 Automated Security Regression Test Suite (`regression_suite.py`)**:
+   - Otomatis membuat berkas skrip pengujian `test_security_regression.py` (Pytest + `httpx`) untuk setiap temuan kerentanan agar dapat diintegrasikan langsung ke CI/CD pipeline.
+4. **📊 Interactive Threat Flow Graph Visualizer (`AttackChainGraph.jsx`)**:
+   - Komponen antarmuka visual node grafik rantai serangan interaktif di dashboard frontend.
 
 ---
 
@@ -42,7 +56,8 @@
 ### 📊 Interactive Dashboard & Security Health Index
 - **Security Health Score (0-100)**: Kalkulasi skor kesehatan keamanan sistem berbasis pembobotan CVSS 3.1 & CWE.
 - **Visualisasi Recharts**: Severity Breakdown (Pie Chart) & Threat Vector Distribution (Bar Chart).
-- **Glassmorphism UI**: Antarmuka berbasis React 19 + Tailwind CSS v4 modern dengan filter severity, pencarian interaktif, dan modal PoC.
+- **Glassmorphism UI**: Antarmuka berbasis React 19 + Tailwind CSS v4 modern dengan filter severity, pencarian interaktif, modal PoC, dan Attack Chain Graph.
+
 
 ### ⚡ Real-Time Live Streaming Logs & Webhooks
 - **Server-Sent Events (SSE)**: Streaming log pemindaian secara langsung dari backend worker ke dashboard frontend.

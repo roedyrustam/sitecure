@@ -213,3 +213,49 @@ async def rescan_vulnerability(vulnerability_id: int, db: Session = Depends(get_
         vuln.is_remediated = False
         db.commit()
         return {"status": "still_vulnerable", "message": "Rescan verification FAILED. Vulnerability is still active."}
+
+@router.get("/{scan_id}/attack-chain")
+def get_attack_chain(scan_id: int, db: Session = Depends(get_db)):
+    scan = db.query(models.ScanJob).filter(models.ScanJob.id == scan_id).first()
+    if not scan:
+        raise HTTPException(status_code=404, detail="Scan job not found")
+
+    vulns = [
+        {
+            "id": v.id,
+            "title": v.title,
+            "severity": v.severity,
+            "cwe_id": v.cwe_id,
+            "affected_endpoint": v.affected_endpoint
+        }
+        for v in scan.vulnerabilities
+    ]
+
+    from app.scanner.attack_chain_analyzer import AttackChainAnalyzer
+    analyzer = AttackChainAnalyzer(vulns)
+    return analyzer.analyze()
+
+@router.get("/{scan_id}/regression-suite")
+def get_regression_suite(scan_id: int, db: Session = Depends(get_db)):
+    scan = db.query(models.ScanJob).filter(models.ScanJob.id == scan_id).first()
+    if not scan:
+        raise HTTPException(status_code=404, detail="Scan job not found")
+
+    vulns = [
+        {
+            "id": v.id,
+            "title": v.title,
+            "cwe_id": v.cwe_id,
+            "affected_endpoint": v.affected_endpoint
+        }
+        for v in scan.vulnerabilities
+    ]
+
+    from app.services.regression_suite import RegressionSuiteService
+    suite_code = RegressionSuiteService.generate_pytest_suite(scan.target.target_url, vulns)
+    return StreamingResponse(
+        iter([suite_code]),
+        media_type="text/x-python",
+        headers={"Content-Disposition": f"attachment; filename=test_security_regression_scan_{scan_id}.py"}
+    )
+

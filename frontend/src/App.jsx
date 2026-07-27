@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard';
 import TargetManager from './components/TargetManager';
 import ScannerControl from './components/ScannerControl';
 import AIRemediationModal from './components/AIRemediationModal';
+import VirtualPatchModal from './components/VirtualPatchModal';
 import ReportExporter from './components/ReportExporter';
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
   const [scans, setScans] = useState([]);
   const [vulnerabilities, setVulnerabilities] = useState([]);
   const [selectedPatchVuln, setSelectedPatchVuln] = useState(null);
+  const [selectedVirtualPatchVuln, setSelectedVirtualPatchVuln] = useState(null);
   const [exportScanId, setExportScanId] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -106,6 +108,7 @@ export default function App() {
                 vulnerabilities={vulnerabilities}
                 onLaunchScan={() => setActiveTab('scanner')}
                 onOpenPatchModal={(vuln) => setSelectedPatchVuln(vuln)}
+                onOpenVirtualPatchModal={(vuln) => setSelectedVirtualPatchVuln(vuln)}
                 onExportReport={(scanId) => setExportScanId(scanId)}
                 refreshData={fetchData}
               />
@@ -139,6 +142,15 @@ export default function App() {
           refreshData={fetchData}
         />
       )}
+
+      {/* Virtual Patch & WAF Shield Modal */}
+      {selectedVirtualPatchVuln && (
+        <VirtualPatchModal
+          vulnerability={selectedVirtualPatchVuln}
+          onClose={() => setSelectedVirtualPatchVuln(null)}
+        />
+      )}
     </div>
   );
 }
+

@@ -7,7 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] - 2026-07-28
+
+### Added (Kehandalan Khusus & Feature Differentiators)
+- **Hybrid DAST-SAST Code Tracer & Attack Chain Analyzer (`attack_chain_analyzer.py`)**:
+  - Mengkorelasikan temuan endpoint DAST langsung dengan pattern source code SAST.
+  - Otomatis memetakan dan mengkalkulasi rantai serangan berisiko tinggi (*Exploit Attack Chains*).
+- **1-Click Virtual Patch & WAF Shield Generator (`virtual_patching.py` & `VirtualPatchModal.jsx`)**:
+  - Menghasilkan aturan benteng keamanan seketika (FastAPI Python Middleware Guard, Nginx ModSecurity SecRules, & Cloudflare Custom WAF Rules) dalam 5 detik sebelum patch kode rilis.
+- **Automated Security Regression Suite Generator (`regression_suite.py`)**:
+  - Menghasilkan skrip pengujian keamanan otomatis (`test_security_regression.py`) berbasis Pytest & `httpx` untuk pencegahan bug regresi di CI/CD pipeline.
+- **Interactive Threat Flow Graph Visualizer (`AttackChainGraph.jsx`)**:
+  - Komponen antarmuka visual grafik rantai serangan di dashboard frontend.
+
 ## [1.0.0] - 2026-07-28
+
 
 ### Added
 - **Interactive Recharts Analytics & Security Health Index**:
